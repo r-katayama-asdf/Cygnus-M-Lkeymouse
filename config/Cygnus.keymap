@@ -5,9 +5,13 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/pointing.h>
 
-#define MOUSE 4
+#define BASE   0
+#define SYM_FN 1
+#define NUMPAD 2
+#define UNUSED 3
+#define MOUSE  4
 #define SCROLL 5
-#define NUM 6
+#define BT     6
 
 &mt {
     flavor = "balanced";
@@ -57,61 +61,43 @@
         compatible = "zmk,keymap";
 
         default_layer {
+            // MacBook-like base. NO mod-tap on alphas. Auto-mouse triggered by trackball.
             bindings = <
-&lt 6 ESC  &kp Q     &kp W     &kp E          &kp R           &kp T                                           &kp Y        &kp U  &kp I      &kp O    &kp P        &kp BSPC
-&kp TAB    &lt 5 A   &lt 4 S   &kp D          &kp F           &kp G        &mkp MCLK          &kp UP_ARROW    &kp H        &kp J  &kp K      &lt 4 L  &lt 5 MINUS  &kp ENTER
-&kp LSHFT  &kp Z     &kp X     &kp C          &kp V           &kp B        &kp DELETE         &kp DOWN_ARROW  &kp N        &kp M  &kp COMMA  &kp DOT  &kp FSLH     &kp RSHFT
-&kp LCTRL  &kp LGUI  &kp LALT  &kp LC(SPACE)  &kp LEFT_ARROW  &lt 1 SPACE  &kp RIGHT_ARROW    &kp BACKSPACE   &lt 2 ENTER                             &kp DEL      &kp RCTRL
+&lt BT ESC  &kp Q     &kp W     &kp E       &kp R           &kp T                                                     &kp Y        &kp U  &kp I      &kp O    &kp P     &kp BSPC
+&kp TAB     &kp A     &kp S     &kp D       &kp F           &kp G              &mkp MCLK          &kp ESC             &kp H        &kp J  &kp K      &kp L    &kp SEMI  &kp SQT
+&kp LSHFT   &kp Z     &kp X     &kp C       &kp V           &kp B              &kp DEL            &kp LS(LC(LA(LGUI))) &kp N        &kp M  &kp COMMA  &kp DOT  &kp FSLH  &kp RSHFT
+&kp LCTRL   &kp LALT  &kp LGUI  &none       &none           &lt SYM_FN SPACE   &mo NUMPAD         &kp BSPC            &kp ENTER                                &kp CAPS  &none
             >;
 
             sensor-bindings = <&ROTATE SCRL_DOWN SCRL_UP>;
         };
 
-        FUNCTION {
+        sym_fn_layer {
+            // Top row: F1-F12. Middle row: MacBook Shift+number-row symbols. Bottom row: programming symbols.
             bindings = <
-&trans  &kp F1   &kp F2  &kp F3  &kp F4  &kp F5                          &kp F1  &kp F2  &kp F3  &kp F4  &kp F5   &trans
-&trans  &kp F6   &kp F7  &kp F8  &kp F9  &kp F10  &trans        &kp F13  &kp F6  &kp F7  &kp F8  &kp F9  &kp F10  &trans
-&trans  &kp F11  &trans  &trans  &trans  &trans   &kp DELETE    &trans   &trans  &trans  &trans  &trans  &kp F11  &trans
-&trans  &kp F12  &trans  &trans  &trans  &trans   &trans        &trans   &trans                          &kp F12  &trans
+&kp F1      &kp F2      &kp F3      &kp F4       &kp F5          &kp F6                                              &kp F7       &kp F8     &kp F9      &kp F10    &kp F11    &kp F12
+&trans      &kp GRAVE   &kp EXCL    &kp AT       &kp HASH        &kp DLLR     &trans             &trans              &kp PRCNT    &kp CARET  &kp AMPS    &kp STAR   &kp LPAR   &kp RPAR
+&trans      &kp TILDE   &kp MINUS   &kp UNDER    &kp EQUAL       &kp PLUS     &trans             &trans              &kp BSLH     &kp PIPE   &kp LBKT    &kp RBKT   &kp QMARK  &trans
+&trans      &trans      &trans      &trans       &trans          &trans       &trans             &trans              &trans                                         &kp LBRC   &kp RBRC
+            >;
+
+            sensor-bindings = <&ROTATE C_VOL_DN C_VOL_UP>;
+        };
+
+        numpad_layer {
+            // Right hand calculator-style numpad. 0 on right thumb (BS position).
+            bindings = <
+&trans      &trans      &trans      &trans       &trans          &trans                                              &trans       &kp KP_N7  &kp KP_N8   &kp KP_N9  &kp KP_MINUS    &kp BSPC
+&trans      &trans      &trans      &trans       &trans          &trans       &trans             &trans              &trans       &kp KP_N4  &kp KP_N5   &kp KP_N6  &kp KP_PLUS     &kp KP_EQUAL
+&trans      &trans      &trans      &trans       &trans          &trans       &trans             &trans              &trans       &kp KP_N1  &kp KP_N2   &kp KP_N3  &kp KP_ASTERISK &trans
+&trans      &trans      &trans      &trans       &trans          &trans       &trans             &kp KP_N0           &trans                                         &kp KP_DOT      &kp KP_COMMA
             >;
 
             sensor-bindings = <&ROTATE SCRL_DOWN SCRL_UP>;
         };
 
-        NUM {
-            bindings = <
-&trans  &kp MINUS                   &kp KP_NUMBER_7  &kp KP_NUMBER_8  &kp KP_NUMBER_9  &kp PLUS                                                 &kp CARET         &kp AMPERSAND      &kp TILDE       &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &trans
-&trans  &kp SLASH                   &kp KP_NUMBER_4  &kp KP_NUMBER_5  &kp KP_NUMBER_6  &kp ASTERISK  &kp LC(LA(KP_NUMBER_0))    &kp UNDERSCORE  &kp EXCLAMATION   &kp AT_SIGN        &kp HASH        &kp DOLLAR            &kp PERCENT            &trans
-&trans  &mt LEFT_SHIFT KP_NUMBER_0  &kp KP_NUMBER_1  &kp KP_NUMBER_2  &kp KP_NUMBER_3  &kp PERIOD    &kp EQUAL                  &trans          &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp LEFT_BRACE  &kp RIGHT_BRACE       &kp BACKSLASH          &trans
-&trans  &trans                      &trans           &trans           &trans           &trans        &trans                     &trans          &trans                                                                     &kp PIPE               &trans
-            >;
-
-            sensor-bindings = <&ROTATE SCRL_DOWN SCRL_UP>;
-        };
-
-        ARROW {
-            bindings = <
-&trans  &kp ESCAPE      &kp LC(LS(TAB))         &kp UP_ARROW    &kp LC(TAB)              &trans                     &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &kp HOME        &kp LEFT_ARROW          &kp DOWN_ARROW  &kp RIGHT_ARROW          &kp END  &trans    &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &kp LEFT_SHIFT  &kp LG(LS(LEFT_ARROW))  &trans          &kp LG(LS(RIGHT_ARROW))  &trans   &trans    &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans          &trans                  &trans          &trans                   &trans   &trans    &trans  &trans                          &trans  &trans
-            >;
-
-            sensor-bindings = <&ROTATE SCRL_DOWN SCRL_UP>;
-        };
-
-        MOUSE {
-            bindings = <
-&trans  &trans       &trans  &kp LC(PAGE_UP)  &kp LC(PAGE_DOWN)  &kp LC(R)                      &kp LC(R)  &kp LC(PAGE_UP)  &kp LC(PAGE_DOWN)  &trans  &trans       &trans
-&trans  &lt 5 SPACE  &trans  &mkp MB1         &mkp MB2           &mkp MB3   &mkp MB3    &trans  &mkp MB3   &mkp MB1         &mkp MB2           &trans  &lt 5 SPACE  &trans
-&trans  &trans       &trans  &trans           &trans             &trans     &trans      &trans  &trans     &mkp MB4         &mkp MB5           &trans  &trans       &trans
-&trans  &trans       &trans  &trans           &trans             &trans     &trans      &trans  &trans                                                 &trans       &trans
-            >;
-
-            sensor-bindings = <&ROTATE SCRL_DOWN SCRL_UP>;
-        };
-
-        SCROLL {
+        unused_layer {
+            // Placeholder for layer 3 to preserve MOUSE=4, SCROLL=5, BT=6 numbering.
             bindings = <
 &trans  &trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans  &trans
@@ -122,7 +108,33 @@
             sensor-bindings = <&ROTATE SCRL_DOWN SCRL_UP>;
         };
 
-        layer_6 {
+        mouse_layer {
+            // Auto-activated by trackball movement (AUTOMOUSE_TIMEOUT_MS=400).
+            // J position = MB1 (left click). Preserved from original Lkeymouse.
+            bindings = <
+&trans  &trans       &trans  &kp LC(PAGE_UP)  &kp LC(PAGE_DOWN)  &kp LC(R)                      &kp LC(R)  &kp LC(PAGE_UP)  &kp LC(PAGE_DOWN)  &trans  &trans       &trans
+&trans  &lt 5 SPACE  &trans  &mkp MB1         &mkp MB2           &mkp MB3   &mkp MB3    &trans  &mkp MB3   &mkp MB1         &mkp MB2           &trans  &lt 5 SPACE  &trans
+&trans  &trans       &trans  &trans           &trans             &trans     &trans      &trans  &trans     &mkp MB4         &mkp MB5           &trans  &trans       &trans
+&trans  &trans       &trans  &trans           &trans             &trans     &trans      &trans  &trans                                                 &trans       &trans
+            >;
+
+            sensor-bindings = <&ROTATE SCRL_DOWN SCRL_UP>;
+        };
+
+        scroll_layer {
+            // All transparent; sensor binds to scroll.
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans                          &trans  &trans
+            >;
+
+            sensor-bindings = <&ROTATE SCRL_DOWN SCRL_UP>;
+        };
+
+        bt_layer {
+            // Activated by Esc (top-left) hold. BT_SEL on right top row.
             bindings = <
 &trans  &trans  &trans        &trans        &trans        &trans                       &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4    &trans
 &trans  &trans  &trans        &trans        &trans        &trans     &trans    &trans  &trans        &trans        &trans        &trans        &trans          &trans
