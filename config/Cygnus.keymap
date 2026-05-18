@@ -87,13 +87,13 @@
         };
 
         symnum_layer {
-            // !@#$%^&* — the shifted-number-row symbols, concentrated near the right home row.
-            // H J K L = ! @ # $   /   U I O P = % ^ & *   (! on H = index home position).
+            // !@#$%^&* — the shifted-number-row symbols as a 2x4 block on the right hand.
+            // H J K L = ! @ # $   /   N M , . = % ^ & *   (stacked: !@#$ on home, %^&* directly below).
             // Activated by holding left thumb middle (Space key).
             bindings = <
-&trans      &trans      &trans      &trans      &trans      &trans                                              &trans       &kp PRCNT  &kp CARET   &kp AMPS    &kp STAR    &trans
+&trans      &trans      &trans      &trans      &trans      &trans                                              &trans       &trans     &trans      &trans      &trans      &trans
 &trans      &trans      &trans      &trans      &trans      &trans       &trans             &trans              &kp EXCL     &kp AT     &kp HASH    &kp DLLR    &trans      &trans
-&trans      &trans      &trans      &trans      &trans      &trans       &trans             &trans              &trans       &trans     &trans      &trans      &trans      &trans
+&trans      &trans      &trans      &trans      &trans      &trans       &trans             &trans              &kp PRCNT    &kp CARET  &kp AMPS    &kp STAR    &trans      &trans
 &trans      &trans      &trans      &trans      &trans      &trans       &trans             &trans              &trans                                          &trans      &trans
             >;
 
