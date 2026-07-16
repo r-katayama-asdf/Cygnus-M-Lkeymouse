@@ -55,6 +55,18 @@
 
             tap-ms = <20>;
         };
+
+        // Assign to L in ZMK Studio. Requires position 40 to send a real LCTRL
+        // (Karabiner's global caps<->ctrl swap must not apply to this keyboard),
+        // otherwise the firmware never sees a modifier and this never morphs.
+        lt_l: lt_l_ctrl_aware {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            display-name = "LT-L (Ctrl aware)";
+            bindings  = <&lt MOUSE L>, <&kp L>;
+            mods      = <(MOD_LCTL|MOD_RCTL)>;
+            keep-mods = <(MOD_LCTL|MOD_RCTL)>;
+        };
     };
 
     keymap {
