@@ -76,11 +76,13 @@
             // MacBook-like base. S/L are Lkeymouse layer-tap (hold = MOUSE; J=click).
             // A and SEMI are plain (SCROLL layer-tap removed). Del position = NUMPAD hold.
             // Left thumb: 44=SYM_FN hold, 45=Space/SYMNUM hold, 46=Cmd.
+            // 40=Ctrl, 41=Caps: lt_l needs the firmware to see a real LCTRL, so
+            // Karabiner must not swap caps/ctrl for this keyboard. Don't flip these back.
             bindings = <
 &lt BT ESC  &kp Q       &kp W       &kp E       &kp R       &kp T                                                     &kp Y        &kp U  &kp I      &kp O        &kp P         &kp BSPC
 &kp TAB     &kp A       &lt MOUSE S &kp D       &kp F       &kp G              &mkp MCLK          &kp ESC             &kp H        &kp J  &kp K      &lt MOUSE L  &kp SEMI      &kp SQT
 &kp LSHFT   &kp Z       &kp X       &kp C       &kp V       &kp B              &mo NUMPAD         &kp LS(LC(LA(LGUI))) &kp N        &kp M  &kp COMMA  &kp DOT      &kp FSLH      &kp RSHFT
-&kp CAPS    &kp LCTRL   &kp LALT    &kp LGUI    &mo SYM_FN  &lt SYMNUM SPACE   &kp LGUI           &kp BSPC            &kp ENTER                                  &kp LG(LBKT)  &kp LG(RBKT)
+&kp LCTRL   &kp CAPS    &kp LALT    &kp LGUI    &mo SYM_FN  &lt SYMNUM SPACE   &kp LGUI           &kp BSPC            &kp ENTER                                  &kp LG(LBKT)  &kp LG(RBKT)
             >;
 
             sensor-bindings = <&ROTATE SCRL_DOWN SCRL_UP>;
